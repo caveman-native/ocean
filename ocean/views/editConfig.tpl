@@ -20,7 +20,7 @@
         % configMap = readProperties()
          <fieldset>
             <legend>Update configiration</legend>
-              %  for key, value in configMap.iteritems():
+              %  for key, value in configMap.items():
             <ul>
               <li>
                  
