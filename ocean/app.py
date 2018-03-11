@@ -1,11 +1,9 @@
 from bottle import route,run,template,request
-from readCfg import readProperties
+from readCfg import readProperties,getProperties
 from updateKey import replace_key
-
+from constants import *
 #config = ConfigParser.RawConfigParser()
 #from readCfg import readProperties
-configFile= 'prf_mission.cfg'
-
 
 def compareProperties(request):
     data = {}
@@ -27,9 +25,9 @@ def index():
     return template('viewConfig')
 
 
-@route("/test",method = "post")
+@route("/test",method = "get")
 def index():
-    return template('testConfig')
+    return template('testConfig', supervisors = getProperties(SUPERVISOR), imm = getProperties(IMM),hosts = getProperties(HOST))
 
 
 @route("/",method="post")
@@ -47,7 +45,7 @@ def test():
     if (len(updatedProps.keys()) > 0):
             
              # Writing our configuration file 
-              with open(configFile, 'r+') as configfile:
+              with open(CONFIG_FILE, 'r+') as configfile:
                  try:   
                     for key, value in updatedProps.items():
                        print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
@@ -63,7 +61,7 @@ def test():
 
               if(len(updatedVals) > 0):
                  for k,v in updatedVals.items():
-                    replace_key(configFile,k,v)
+                    replace_key(CONFIG_FILE,k,v)
     else:
         print('No config values updated.')
     
