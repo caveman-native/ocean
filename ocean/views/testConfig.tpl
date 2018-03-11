@@ -20,9 +20,27 @@
 
 % include('mission.tpl')
 
-<h2>Current properties are : </h2>    
+<h2>Current supervisors properties are : </h2>    
     
-fdhfhgfhgfhfghfghfgh
+
+    %    for key, value in reversed(sorted(supervisors.items())):
+<p> {{key}} :  {{value}}</p>
+    %end
+	
+
+<h2>Current host properties are : </h2>    
+    
+    %    for key, value in reversed(sorted(hosts.items())):
+<p> {{key}} :  {{value}}</p>
+    %end
+
+<h2>Current imm properties are : </h2>    
+    
+
+    %    for key, value in reversed(sorted(imm.items())):
+<p> {{key}} :  {{value}}</p>
+    %end
+
 <p> <a href="/editConfig">Edit</a>  </p>
 
 </body>
