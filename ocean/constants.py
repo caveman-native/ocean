@@ -1,0 +1,6 @@
+CONFIG_FILE = 'prf_mission.cfg'
+SEPARATOR = '='
+SUPERVISOR = 'supervisor'
+HOST = 'host'
+IMM = 'imm'
+COMMENT = ' #'
