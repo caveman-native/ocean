@@ -10,18 +10,21 @@ This README would normally document whatever steps are necessary to get your app
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
+* Install python and pip
+* install bottle (pip install bottle)
+* or copy bottle.py at installation directory
 * Database configuration
 * How to run tests
 * Deployment instructions
 
-### Contribution guidelines ###
+### deploy bottle to apache ###
 
-* Writing tests
-* Code review
-* Other guidelines
+* State apache - systemctl start httpd.service
+* Enable apache - systemctl enable httpd.service
+* Open apache - firewall-cmd --permanent --add-service=http or firewall-cmd --add-service=http
+* Create a directory at var\www\newdirectory e.g. var\new\ocean
+* 
+
 
 ### Who do I talk to? ###
 
