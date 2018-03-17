@@ -70,7 +70,7 @@ def test():
 
 @route("/editConfig")
 def index():
-    return template('editConfig', message= 'Please check once before saving.') 
+    return template('editConfig', new="test", message= 'Please check once before saving.') 
 
 
 run(host='localhost',port=9090)
