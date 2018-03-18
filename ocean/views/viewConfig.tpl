@@ -1,36 +1,36 @@
-<!DOCTYPE html>
-<html>
-<header>
-      <title>View configuration</title>
-      <style>
-        body {background-color: powderblue;}
-        h1   {color: blue;}
-        p    {color: red;}
-        ul   { padding-left: 5px;}
-        li {
-        padding: 3 3 3 3;
-}
+% include('header.tpl')
 
-</style>
-</header>    
-    
-<body>
+<div id="profiler-viewconfig-container">
 
-<body>
+    <h2 class="section-title">Profiler Mission Configuration</h2>
+    <h3 class="view-title">Current Properties</h3>
 
-% include('mission.tpl')
+    <div class="current-property-list">
 
-<h2>Current properties are : </h2>    
-    
-%from readCfg import readProperties
-% configMap = readProperties()
-    %    for key, value in configMap.items():
-<p> {{key}} :  {{value}}</p>
-    %end
+        <ul>
+            % for key, value in reversed(sorted(supervisors.items())):
+            <li><span class="left">{{key}}:</span><span class="right">{{value}}</span></li><br>
+            %end
+        </ul>
 
-<p> <a href="/editConfig">Edit</a>  </p>
+        <ul>
+            % for key, value in reversed(sorted(hosts.items())):
+            <li><span class="left">{{key}}:</span><span class="right">{{value}}</span></li><br>
+            %end
+        </ul>
 
-</body>
+        <ul>
+            % for key, value in reversed(sorted(imm.items())):
+            <li><span class="left">{{key}}:</span><span class="right">{{value}}</span></li><br>
+            %end
+        </ul>
+
+    </div>
+
+    <div class="edit-btn-bottom">
+            <a href="/editConfig">Edit Current Configuration</a>
+    </div>
+
+</div>
+
 % include('footer.tpl')
-
-</head>
