@@ -1,40 +1,60 @@
-<html>
-  <head>
-      <title>Update configuration</title>
-      <style>
-        body {background-color: powderblue;}
-        h1   {color: blue;}
-        p    {color: red;}
-        ul   { padding-left: 5px;}
-        li {
-        padding: 3 3 3 3;
-}
+% include('header.tpl')
 
-</style>
-      
-  </head>
-  <body>
-    <form method="post" action="/">
+<div id="profiler-editconfig-container">
+
+    <h2 class="section-title">Profiler Mission Configuration</h2>
+
+    <form id="edit-config-form" method="post" action="/">
+
+        <div class="option-container-super">
+            <legend>Supervisor Options</legend>            
+            <ul>                  
+                % for key, value in reversed(sorted(supervisors.items())):
+                <li>
+                    % if key == "supervisor.wake_mode":
+                        <label>Wake Mode:</label>
+                        <select  name={{key}}>
+                            <option value="1"></option> 
+                            <option value="2" selected>{{value}}</option>
+                        </select>
+                    % else:
+                        <label>{{key}}:</label><br> <input class="" name={{key}} value={{value}} />
+                    % end
+                % end  
+                </li>                       
+            </ul>
+        </div> 
         
-        %from readCfg import readProperties
-        % configMap = readProperties()
-         <fieldset>
-            <legend>Update configiration</legend>
-              %  for key, value in configMap.items():
-            <ul>
-              <li>
-                 
-                  {{key}}: <input name={{key}} value={{value}} >
-                   
-              </li>
-                  % end            
-             </ul>
-            <input type='submit' value='Submit Form'>
-        </fieldset>
-    </form>
-    
-    <p>{{message}}</p>
+        <div class="option-container-imm">
+            <legend>IMM Options</legend>
+            <ul>                  
+                % for key, value in reversed(sorted(imm.items())):
+                <li>
+                    <label>{{key}}:</label><br> <input class="" name={{key}} value={{value}} />                        
+                % end  
+                </li>                       
+            </ul>
+        </div>        
+        
+        <div class="option-container-hosts">
+            <legend>Hosts Options</legend>
+            <ul>                  
+                % for key, value in reversed(sorted(hosts.items())):
+                <li>
+                    <label>{{key}}:</label><br> <input class="" name={{key}} value={{value}} />    
+                % end  
+                </li>                       
+            </ul>
+        </div>        
+            
+        <div class="submit-btn-container">
+            <input class="submit-btn" type='submit' value='Edit Properties'>
+        </div>
 
-  </body>
-</html>
+    </form>
+
+</div>
+
+% include('footer.tpl')
+
    
