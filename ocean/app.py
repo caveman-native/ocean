@@ -1,4 +1,4 @@
-from bottle import route,run,template,request
+from bottle import route,run,template,request,static_file
 from readCfg import readProperties,getProperties
 from updateKey import replace_key
 from constants import *
@@ -17,17 +17,32 @@ def compareProperties(request):
         
     print(data)
     return data
-     
+
+
+# Static Routes
+@route("/static/css/<filepath:re:.*\.css>")
+def css(filepath):
+    return static_file(filepath, root="static/css")
+
+@route("/static/js/<filepath:re:.*\.js>")
+def js(filepath):
+    return static_file(filepath, root="static/js")
+
+@route("/static/img/<filepath:re:.*\.(jpg|png|gif|ico|svg)>")
+def img(filepath):
+    return static_file(filepath, root="static/img")
+
+#@route("/static/font/<filepath:re:.*\.(eot|otf|svg|ttf|woff|woff2?)>")
+#def font(filepath):
+#    return static_file(filepath, root="static/font")
 
 
 @route("/")
 def index():
-    return template('viewConfig')
-
-
-@route("/test",method = "get")
-def index():
-    return template('testConfig', supervisors = getProperties(SUPERVISOR), imm = getProperties(IMM),hosts = getProperties(HOST))
+    return template('viewConfig',
+    supervisors = getProperties(SUPERVISOR),
+    imm = getProperties(IMM),
+    hosts = getProperties(HOST))
 
 
 @route("/",method="post")
@@ -65,13 +80,19 @@ def test():
     else:
         print('No config values updated.')
     
-    return template('viewConfig') 
+    return template('viewConfig',
+    supervisors = getProperties(SUPERVISOR),
+    imm = getProperties(IMM),
+    hosts = getProperties(HOST)) 
 
 
 @route("/editConfig")
 def index():
-    return template('editConfig', message= 'Please check once before saving.') 
-
+    return template('editConfig',
+    supervisors = getProperties(SUPERVISOR),
+    imm = getProperties(IMM),
+    hosts = getProperties(HOST),
+    message = 'Please check once before saving.')
 
 run(host='localhost',port=9090)
 
