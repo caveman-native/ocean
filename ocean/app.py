@@ -2,6 +2,7 @@ from bottle import route,run,template,request,static_file
 from readCfg import readProperties,getProperties
 from updateKey import replace_key
 from constants import *
+from tinydb import TinyDB
 #config = ConfigParser.RawConfigParser()
 #from readCfg import readProperties
 
@@ -93,6 +94,47 @@ def index():
     imm = getProperties(IMM),
     hosts = getProperties(HOST),
     message = 'Please check once before saving.')
+
+
+@route("/profilepatterns",method = "post")
+def profiles():
+   profiledb = TinyDB('profile.json')
+   profiledb.insert({'description':request.forms.get('description'),
+   'type':request.forms.get('type'),
+   'direction':request.forms.get('direction'),
+   'interval':request.forms.get('interval'),
+   'stopCheck':request.forms.get('stopcheck'),
+   'shallowWindow':request.forms.get('shallowWindow'),
+   'shallowDepth':request.forms.get('shallowDepth'),
+   'deepDepth':request.forms.get('deepDepth'),
+   'deepWindow':request.forms.get('deepWindow'),
+   'rampTime':request.forms.get('rampTime'),
+   'maxTime':request.forms.get('maxTime'),
+   'backtrackTimes':request.forms.get('backtrackTimes'),
+   'stallTimeout':request.forms.get('stallTimeout'),
+   'ctdWrapupTime':request.forms.get('ctdWrapupTime'),
+   'backtrackTimes':request.forms.get('backtrackTimes'),
+   'backtrackCount':request.forms.get('backtrackCount'),
+   'dpdt':request.forms.get('dpdt')
+   })
+   
+   print(profiledb.all())
+ 
+   return template('profilePatterns' , profile_rows = profiledb.all())
+
+
+
+@route("/profilepatterns",method = "get")
+def profiles():
+   profiledb = TinyDB('profile.json')
+   print(profiledb)
+   return template('profilePatterns', profile_rows = profiledb.all() )
+
+@route("/createProfile",method = "get")
+def createProfile():
+   
+   return template('createProfile')
+
 
 run(host='localhost',port=9090)
 
