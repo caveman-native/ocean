@@ -13,7 +13,7 @@ This README would normally document whatever steps are necessary to get your app
 * Install python and pip
 * install bottle (pip install bottle)
 * or copy bottle.py at installation directory
-* Database configuration
+* Database configuration - pip install tinydb
 * How to run tests
 * Deployment instructions
 
