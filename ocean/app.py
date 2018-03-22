@@ -178,24 +178,87 @@ def createPattern():
 
 @route("/viewPatterns",method = "get")
 def viewPatterns():
-    return json.dumps(patterndb.all())
+    data = {}
+    for pattern in patterndb:
+        data[pattern.doc_id] = pattern
+    
+    #print(data)
+    # Need Json or Map?
+    return data
 
-@route("/updatePattern/<pattern>",method = "get")
+@route("/viewProfiles",method = "get")
+def viewProfiles():
+    data = {}
+    for profile in profiledb:
+        data[profile.doc_id] = profile
+    
+    #print(data)
+    return data
+
+
+@route("/deletePattern/<key>",method = "get")
+def deletePattern(key):
+    if key:
+        documentId = int(key)
+        pattern = patterndb.contains(doc_ids=[documentId])
+
+        print(pattern)
+        #check if pattern id exists 
+        if pattern:
+            print('Remove Item : Found item with doc id: ', key)
+            patterndb.remove(doc_ids=[documentId]) 
+            return '<p>Pattern with ' + key + ' removed successfully </p>'     
+        else:
+            return '<p>No value found with passed document id.</p>'     
+    else:
+        return '<p> Please pass document id to delete the element. </p> ' 
+
+
+
+@route("/deleteProfile/<key>",method = "get")
+def deleteProfile(key):
+    #print('key is:' ,int(key))
+    if key:
+        documentId = int(key)
+        profile = profiledb.contains(doc_ids=[documentId])
+
+        print(profile)
+        #check if profile id exists 
+        if profile:
+            print('Remove Item : Found item with doc id: ', key)
+            profiledb.remove(doc_ids=[documentId]) 
+            return '<p>Profile with' + key +'removed successfully </p>'     
+        else:
+            return '<p>No value found with passed document id.</p>'     
+    else:
+        return '<p>Please pass document id to delete the element.</p>' 
+
+
+
+
+
+@route("/updatePattern/<pattern>",method = "post")
 def updatePattern(pattern):
-   #check if meta is null or not
-    if name:
-        if patterndb.search(query.meta == meta):
-            el = patterndb.get(query.name == name)
-            return '''<form action='/createPattern' method='post'>
-   Meta: <input name="meta" type="text" maxlength="200" required/>
-   Start Date: <input name="start_dt" type="date" min="2018-04-01" max="2020-04-30" />
-   End Date: <input name="end_dt" type="date" min="2018-04-01" max="2021-04-30" />
-   Type: <input name="type" type="number" min="0" max= "2"/>
-   Status: <input name="status" type="number" min="0" max= "1"/>
-   <input value="Create Pattern" type="submit" />
-   </form>'''
-           
 
+    meta = request.forms.get('meta')
+    start_dt = request.forms.get('start_dt')
+    end_dt = request.forms.get('end_dt')
+    type = request.forms.get('type')
+    status = request.forms.get('status')
+
+   #check if meta is null or not
+    if pattern:
+        if patterndb.search(query.meta == pattern):
+            #el = patterndb.get(query.name == pattern)
+            if meta:
+                patterndb.upsert({'meta':meta,
+                            'type':type,
+                            'start_dt':start_dt,
+                            'end_dt':end_dt,
+                            'status':status
+                           }, query.meta == meta)
+            else:
+               return "<p>Meta description is mandatory.</p>"         
         else:
             return "<p>Sorry, no record found, please check the pattern.</p>"    
 
@@ -203,9 +266,6 @@ def updatePattern(pattern):
         return "<p> Please pass Pattern to update.</p>"
 
 
-@route("/viewPatterns",method = "get")
-def viewPatterns():
-    return json.dumps(patterndb.all())    
 
 @route("/editProfile",method = "get")
 def profiles():
