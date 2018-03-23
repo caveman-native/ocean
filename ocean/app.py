@@ -187,13 +187,52 @@ def viewPatterns():
     return data
 
 @route("/viewProfiles",method = "get")
-def viewviewProfiles():
+def viewProfiles():
     data = {}
     for profile in profiledb:
         data[profile.doc_id] = profile
     
     #print(data)
     return data
+
+
+@route("/deletePattern/<key>",method = "get")
+def deletePattern(key):
+    if key:
+        documentId = int(key)
+        pattern = patterndb.contains(doc_ids=[documentId])
+
+        print(pattern)
+        #check if pattern id exists 
+        if pattern:
+            print('Remove Item : Found item with doc id: ', key)
+            patterndb.remove(doc_ids=[documentId]) 
+            return '<p>Pattern with ' + key + ' removed successfully </p>'     
+        else:
+            return '<p>No value found with passed document id.</p>'     
+    else:
+        return '<p> Please pass document id to delete the element. </p> ' 
+
+
+
+@route("/deleteProfile/<key>",method = "get")
+def deleteProfile(key):
+    #print('key is:' ,int(key))
+    if key:
+        documentId = int(key)
+        profile = profiledb.contains(doc_ids=[documentId])
+
+        print(profile)
+        #check if profile id exists 
+        if profile:
+            print('Remove Item : Found item with doc id: ', key)
+            profiledb.remove(doc_ids=[documentId]) 
+            return '<p>Profile with' + key +'removed successfully </p>'     
+        else:
+            return '<p>No value found with passed document id.</p>'     
+    else:
+        return '<p>Please pass document id to delete the element.</p>' 
+
 
 
 
