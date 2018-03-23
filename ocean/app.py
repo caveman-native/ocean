@@ -138,13 +138,13 @@ def createProfile():
 @route("/createPattern",method = "get")
 def createPattern():
    
-   return '''<form action='/createPattern' method='post'>
-   Meta: <input name="meta" type="text" maxlength="200" required/>
-   Start Date: <input name="start_dt" type="date" min="2018-04-01" max="2020-04-30" />
-   End Date: <input name="end_dt" type="date" min="2018-04-01" max="2021-04-30" />
-   Type: <input name="type" type="number" min="0" max= "2"/>
-   Status: <input name="status" type="number" min="0" max= "1"/>
-   <input value="Create Pattern" type="submit" />
+   return '''<form id="create-pattern-form" action='/createPattern' method='post'>
+   Meta: <input id="meta" name="meta" type="text" maxlength="200" required/>
+   Start Date: <input id="start-date" name="start_dt" type="date" min="2018-04-01" max="2020-04-30" />
+   End Date: <input id="end-dt" name="end_dt" type="date" min="2018-04-01" max="2021-04-30" />
+   Type: <input id="type" name="type" type="number" min="0" max= "2"/>
+   Status: <input id="status" name="status" type="number" min="0" max= "1"/>
+   <input id="pattern-submit" value="Create Pattern" type="submit" />
    </form>'''
 
 @route("/createPattern",method = "post")
