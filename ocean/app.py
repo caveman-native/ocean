@@ -93,7 +93,11 @@ def test():
 def index():
     return template('editConfig',  supervisors = getProperties(SUPERVISOR),
                      imm = getProperties(IMM),
-                     hosts = getProperties(HOST)) 
+                     hosts = getProperties(HOST))
+                     
+@route("/viewChart")
+def index():
+    return template('viewChart')                     
 
 
 @route("/profilepatterns",method = "post")
