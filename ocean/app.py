@@ -132,20 +132,73 @@ def profiles():
 
 @route("/createProfile",method = "get")
 def createProfile():
-   
-   return template('createProfile')
+   return '''<form action='/createProfile' id="create-profile" method='post'>
+   meta : <input name="meta" id="meta" type="text" maxlength="200" required/>
+   type : <input name="type" type="number" id="type" max="200" min="0"/>
+   direction : <input name="direction" type="number" id="direction" max="200" min="0" />
+   interval: <input name="interval" type="number" id="meta" max="200" min="0" />
+   stopCheck:<input name="stopCheck" type="number" id="stopCheck" max="200" min="0" />
+   shallowWindow:<input name="shallowWindow" type="number" id="shallowWindow" max="200" min="0" />
+   shallowDepth:<input name="shallowDepth" type="number" id="shallowDepth" max="200" min="0" />
+   deepDepth:<input name="deepDepth" type="number" id="deepDepth" max="200" min="0" />
+   deepWindow:<input name="deepWindow" type="number" id="deepWindow" max="200" min="0" />
+   rampTime:<input name="rampTime" type="number" id="rampTime" max="200" min="0" />
+   maxTime:<input name="maxTime" type="number" id="maxTime" max="200" min="0" />
+   backtrackTimes:<input name="backtrackTimes" type="number" id="backtrackTimes" max="200" min="0" />
+   stallTimeout:<input name="stallTimeout" type="number" id="stallTimeout" max="200" min="0" />
+   ctdWrapupTime:<input name="ctdWrapupTime" type="number" id="ctdWrapupTime" max="200" min="0" />
+   backtrackTimes:<input name="backtrackTimes" type="number" id="backtrackTimes" max="200" min="0" />
+   backtrackCount:<input name="backtrackCount" type="number" id="backtrackCount" max="200" min="0" />
+   dpdt:<input name="dpdt" type="number" maxlength="200" id="dpdt" max="200" min="0"/>
+   <input value="Create Profile"  id="profile-submit" type="submit"  />
+   </form>'''
+
+
+@route("/createProfile",method = "post")
+def createProfile():
+    meta = request.forms.get('meta')
+    
+    #check if meta is null or not
+    if meta:
+        #check if meta exists 
+        if not profiledb.search(query.meta == meta):
+           #insert data
+           profiledb.insert({'meta':request.forms.get('meta'),
+            'type':request.forms.get('type'),
+            'direction':request.forms.get('direction'),
+            'interval':request.forms.get('interval'),
+            'stopCheck':request.forms.get('stopcheck'),
+            'shallowWindow':request.forms.get('shallowWindow'),
+            'shallowDepth':request.forms.get('shallowDepth'),
+            'deepDepth':request.forms.get('deepDepth'),
+            'deepWindow':request.forms.get('deepWindow'),
+            'rampTime':request.forms.get('rampTime'),
+            'maxTime':request.forms.get('maxTime'),
+            'backtrackTimes':request.forms.get('backtrackTimes'),
+            'stallTimeout':request.forms.get('stallTimeout'),
+            'ctdWrapupTime':request.forms.get('ctdWrapupTime'),
+            'backtrackTimes':request.forms.get('backtrackTimes'),
+            'backtrackCount':request.forms.get('backtrackCount'),
+            'dpdt':request.forms.get('dpdt')
+            })
+           return "<p> Profile added successfully.</p>"               
+        else:
+            return "<p> Profile already exists with same description(meta). Please change the meta description(meta).</p>"   
+
+    else:
+        return "<p> Please enter profile description(meta).</p>"
 
 @route("/createPattern",method = "get")
 def createPattern():
-   
+
    return '''<form id="create-pattern-form" action='/createPattern' method='post'>
-   Meta: <input id="meta" name="meta" type="text" maxlength="200" required/>
-   Start Date: <input id="start-date" name="start_dt" type="date" min="2018-04-01" max="2020-04-30" />
-   End Date: <input id="end-dt" name="end_dt" type="date" min="2018-04-01" max="2021-04-30" />
-   Type: <input id="type" name="type" type="number" min="0" max= "2"/>
-   Status: <input id="status" name="status" type="number" min="0" max= "1"/>
-   <input id="pattern-submit" value="Create Pattern" type="submit" />
-   </form>'''
+    Meta: <input id="meta" name="meta" type="text" maxlength="200" required/>
+    Start Date: <input id="start-date" name="start_dt" type="date" min="2018-04-01" max="2020-04-30" />
+    End Date: <input id="end-dt" name="end_dt" type="date" min="2018-04-01" max="2021-04-30" />
+    Type: <input id="type" name="type" type="number" min="0" max= "2"/>
+    Status: <input id="status" name="status" type="number" min="0" max= "1"/>
+    <input id="pattern-submit" value="Create Pattern" type="submit" /> </form>'''
+
 
 @route("/createPattern",method = "post")
 def createPattern():
@@ -236,6 +289,7 @@ def deleteProfile(key):
 
 
 
+
 @route("/updatePattern/<pattern>",method = "post")
 def updatePattern(pattern):
 
@@ -269,7 +323,7 @@ def updatePattern(pattern):
 @route("/editProfile",method = "get")
 def profiles():
    
-   return('Hellow')
+   return('Hello')
 
 
 run(host='localhost',port=9090)
