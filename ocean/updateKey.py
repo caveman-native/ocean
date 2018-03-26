@@ -47,8 +47,4 @@ def replace_key_1(filename, key, value):
       print(line)
 
 
-  
 
-
-
-replace_key('file.cfg','key1','value8')
