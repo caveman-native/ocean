@@ -31,10 +31,11 @@ This README would normally document whatever steps are necessary to get your app
   Syntax OK
   wsgi_module (shared)
 * Create configuration file - touch /etc/apache2/sites-available/schedule.conf
+  <br/>
   Sample file:
-  <VirtualHost *:80>
+   <br />
+   <VirtualHost *:80>
     ServerName www.schedule.com
-
     WSGIScriptAlias / /root/ocean/ocean/ocean.wsgi
     <Directory /root/ocean/ocean/>
         Require all granted
