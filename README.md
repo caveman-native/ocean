@@ -24,6 +24,9 @@ This README would normally document whatever steps are necessary to get your app
 * Open apache - firewall-cmd --permanent --add-service=http or firewall-cmd --add-service=http
 * Create a directory at var\www\newdirectory e.g. var\new\ocean
 * 
+* In Debian:
+*  install wsgi - apt-get install libapache2-mod-wsgi
+
 
 
 ### Who do I talk to? ###
