@@ -25,9 +25,26 @@ This README would normally document whatever steps are necessary to get your app
 * Create a directory at var\www\newdirectory e.g. var\new\ocean
 * 
 * In Debian:
-*  install wsgi - apt-get install libapache2-mod-wsgi
+* Install wsgi - apt-get install libapache2-mod-wsgi
+* Check if wsgi enabled:
+  pache2ctl -M|grep -i wsgi
+  Syntax OK
+  wsgi_module (shared)
+* Create configuration file - touch /etc/apache2/sites-available/schedule.conf
+  Sample file:
+  <VirtualHost *:80>
+    ServerName www.schedule.com
+
+    WSGIScriptAlias / /root/ocean/ocean/ocean.wsgi
+    <Directory /root/ocean/ocean/>
+        Require all granted
+     </Directory>
+
+  </VirtualHost>
 
 
+* Add new conf to site enabled using - a2ensite schedule.conf
+* Check configuration - apache2ctl configtest
 
 ### Who do I talk to? ###
 
