@@ -33,7 +33,6 @@ def css(filepath):
 def js(filepath):
     return static_file(filepath, root="static/js")
 
-
 @route("/static/img/<filepath:re:.*\.(jpg|png|gif|ico|svg)>")
 def img(filepath):
    return static_file(filepath, root="static/img")
@@ -41,12 +40,16 @@ def img(filepath):
 
 @route("/")
 def index():
-    return template('viewConfig')
+    return template('viewConfig',
+    supervisors = getProperties(SUPERVISOR),
+    imm = getProperties(IMM),
+    hosts = getProperties(HOST))
 
 
 @route("/test",method = "get")
 def index():
     return template('testConfig', supervisors = getProperties(SUPERVISOR), imm = getProperties(IMM),hosts = getProperties(HOST))
+
 
 @route("/",method="post")
 def test():
