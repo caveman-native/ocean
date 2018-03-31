@@ -56,5 +56,3 @@
 </div>
 
 % include('footer.tpl')
-
-   
