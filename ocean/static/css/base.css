@@ -108,6 +108,14 @@ h3.view-title {
     width: 620px;
 }
 
+#profiler-patterns-container {
+    position: relative;
+    float: left;
+    top: 25px;
+    left: 38px;
+    width: 620px;
+}
+
 #my-charts-container {
     position: relative;
     float: left;
