@@ -170,23 +170,23 @@ def createProfile():
         #check if meta exists 
         if not profiledb.search(query.meta == meta):
            #insert data
-           profiledb.insert({'meta':request.forms.get('meta'),
-            'type':request.forms.get('type'),
-            'direction':request.forms.get('direction'),
-            'interval':request.forms.get('interval'),
-            'stopCheck':request.forms.get('stopcheck'),
-            'shallowWindow':request.forms.get('shallowWindow'),
-            'shallowDepth':request.forms.get('shallowDepth'),
-            'deepDepth':request.forms.get('deepDepth'),
-            'deepWindow':request.forms.get('deepWindow'),
-            'rampTime':request.forms.get('rampTime'),
-            'maxTime':request.forms.get('maxTime'),
-            'backtrackTimes':request.forms.get('backtrackTimes'),
-            'stallTimeout':request.forms.get('stallTimeout'),
-            'ctdWrapupTime':request.forms.get('ctdWrapupTime'),
-            'backtrackTimes':request.forms.get('backtrackTimes'),
-            'backtrackCount':request.forms.get('backtrackCount'),
-            'dpdt':request.forms.get('dpdt')
+           profiledb.insert({'profile.meta':request.forms.get('meta'),
+            'profile.type':request.forms.get('type'),
+            'profile.direction':request.forms.get('direction'),
+            'profile.interval':request.forms.get('interval'),
+            'profile.stopCheck':request.forms.get('stopcheck'),
+            'profile.shallowWindow':request.forms.get('shallowWindow'),
+            'profile.shallowDepth':request.forms.get('shallowDepth'),
+            'profile.deepDepth':request.forms.get('deepDepth'),
+            'profile.deepWindow':request.forms.get('deepWindow'),
+            'profile.rampTime':request.forms.get('rampTime'),
+            'profile.maxTime':request.forms.get('maxTime'),
+            'profile.backtrackTimes':request.forms.get('backtrackTimes'),
+            'profile.stallTimeout':request.forms.get('stallTimeout'),
+            'profile.ctdWrapupTime':request.forms.get('ctdWrapupTime'),
+            'profile.backtrackTimes':request.forms.get('backtrackTimes'),
+            'profile.backtrackCount':request.forms.get('backtrackCount'),
+            'profile.dpdt':request.forms.get('dpdt')
             })
            return "<p> Profile added successfully.</p>"               
         else:
@@ -220,11 +220,11 @@ def createPattern():
         #check if meta exists 
         if not patterndb.search(query.meta == meta):
            #insert data
-           patterndb.insert({'meta':meta,
-                            'type':type,
-                            'start_dt':start_dt,
-                            'end_dt':end_dt,
-                            'status':status
+           patterndb.insert({'pattern.meta':meta,
+                            'pattern.type':type,
+                            'pattern.start_dt':start_dt,
+                            'pattern.end_dt':end_dt,
+                            'pattern.status':status
                            })
            return "<p> Pattern added successfully.</p>"               
         else:
@@ -311,11 +311,11 @@ def updatePattern(pattern):
         if patterndb.search(query.meta == pattern):
             #el = patterndb.get(query.name == pattern)
             if meta:
-                patterndb.upsert({'meta':meta,
-                            'type':type,
-                            'start_dt':start_dt,
-                            'end_dt':end_dt,
-                            'status':status
+                patterndb.upsert({'pattern.meta':meta,
+                            'pattern.type':type,
+                            'pattern.start_dt':start_dt,
+                            'pattern.end_dt':end_dt,
+                            'pattern.status':status
                            }, query.meta == meta)
             else:
                return "<p>Meta description is mandatory.</p>"         
@@ -331,6 +331,14 @@ def updatePattern(pattern):
 def profiles():
    
    return('Hello')
+   
+
+@route('/download/getConfig',method = 'get')
+def download():
+    
+    downloadConfigFile(profiledb,patterndb)
+    return static_file('Scheduler.cfg', root='.', download='Scheduler.cfg')
+    #return static_file('Scheduler.cfg', root='.',)   
 
 
 run(host='localhost',port=9090)
