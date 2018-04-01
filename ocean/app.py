@@ -4,6 +4,7 @@ from updateKey import replace_key
 from constants import *
 from tinydb import TinyDB,Query
 import json
+from writeConfig import downloadConfigFile
 #config = ConfigParser.RawConfigParser()
 #from readCfg import readProperties
 
