@@ -15,7 +15,7 @@
             <a class="nav-link" href="/pattern">patterns</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/fileDownloads">export schedule</a>
+            <a class="nav-link" href="/download/getConfig">export schedule</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/status">status</a>
