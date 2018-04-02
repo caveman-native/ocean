@@ -25,20 +25,26 @@ def writeConfigFile(profiledb,patterndb):
         outfile.write('#-------------------------------------------------------------------------------\n')
         outfile.write('#-------------------------------------------------------------------------------\n')
         for profile in profiledb:
-        #json.dump(profiledb.all(), outfile, indent=2)
             outfile.write("\n")
-            print(profile)
+            #print(profile.doc_id)
+            outfile.write('#-------------------------------------------------------------------------------\n')
+            outfile.write('\n  profile.start : ' + str(profile.doc_id) )
             json.dump(profile, outfile, indent=2)
-            #outfile.write(profile)
+            outfile.write('  profile.end  : ' + str(profile.doc_id) + '\n')
+            outfile.write('#-------------------------------------------------------------------------------\n')
+
         outfile.write('\n#-------------------------------------------------------------------------------')
         outfile.write('\n# Patterns List                                                                 ')
         outfile.write('\n#-------------------------------------------------------------------------------')
         for pattern in patterndb:
         #json.dump(profiledb.all(), outfile, indent=2)
             outfile.write("\n")
+            outfile.write('#-------------------------------------------------------------------------------\n')
+            outfile.write('\n  pattern.start : ' + str(pattern.doc_id) )
             json.dump(pattern, outfile, indent=2)
-            outfile.write('\n#-------------------------------------------------------------------------------')
-
+            outfile.write('  pattern.end  : ' + str(pattern.doc_id) + '\n')
+            outfile.write('#-------------------------------------------------------------------------------\n')
+            
         
         outfile.close()
         
@@ -67,7 +73,7 @@ def updateConfigFile(filename):
           newText=newText.replace('}', '')
  
        while '{' in newText:
-          newText=newText.replace('{', replaceText)
+          newText=newText.replace('{', '')
 
        while '"' in newText:
           newText=newText.replace('"', '')
@@ -112,3 +118,7 @@ def downloadConfigFile(profiledb,patterndb):
     writeConfigFile(profiledb,patterndb)
     updateConfigFile(filename)
     formatConfig(filename, equalsTO)
+
+
+
+downloadConfigFile(profiledb, patterndb)
