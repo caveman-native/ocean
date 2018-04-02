@@ -48,12 +48,21 @@ def index():
 
 
 @route("/profile",method = "get")
-def test():
+def profile():
     return template('profile')
 
 @route("/profile",method = "post")
-def test():
+def profile():
     return template('profile')
+
+@route("/pattern",method = "get")
+def profile():
+    return template('pattern')
+
+@route("/pattern",method = "post")
+def profile():
+    return template('pattern')
+
 
 
 @route("/",method="post")
@@ -218,7 +227,7 @@ def createPattern():
     end_dt = request.forms.get('end_dt')
     type = request.forms.get('type')
     status = request.forms.get('status')
-    
+    sequence = request.forms.get('sequence')
     #check if meta is null or not
     if meta:
         #check if meta exists 
@@ -228,14 +237,15 @@ def createPattern():
                             'pattern.type':type,
                             'pattern.start_dt':start_dt,
                             'pattern.end_dt':end_dt,
+                            'pattern.sequence' : sequence,
                             'pattern.status':status
                            })
-           return "<p> Pattern added successfully.</p>"               
+           return " Pattern added successfully. "
         else:
-            return "<p> Pattern already exists with same description. Please change the meta description.</p>"   
+            return " Pattern already exists with same description. Please change the meta description. "
 
     else:
-        return "<p> Please enter pattern description.</p>"
+        return " Please enter pattern description. "
 
 
 
@@ -271,7 +281,7 @@ def deletePattern(key):
         if pattern:
             print('Remove Item : Found item with doc id: ', key)
             patterndb.remove(doc_ids=[documentId]) 
-            return '<p>Pattern with ' + key + ' removed successfully </p>'     
+            return '<p>Pattern removed successfully </p>'
         else:
             return '<p>No value found with passed document id.</p>'     
     else:
