@@ -6,8 +6,10 @@
 
 $.getJSON( "/viewProfiles", function( data ) {
   var items = [];
+  var keys = [];
   $.each( data, function( key, val ) {
     items.push( val  );
+    keys.push( key );
   });
  $("tr:has(td)").remove();
 
@@ -18,22 +20,13 @@ $.getJSON( "/viewProfiles", function( data ) {
           + '</td><td>' + item["profile.stopCheck"] +  '</td><td>' + item["profile.shallowWindow"]
           + '</td><td>' + item["profile.stallTimeout"] + '</td> '
           + '</td><td> <a href="/editProfile#"> Edit </a> </td>'
-          + '</td><td> <a href="/deleteProfile#"> Delete </a> </td> </tr>';
+          + '</td><td> <a id="deleteProfile" href="#deleteProfile" onClick="deleteProfile(' + keys[index] + '); return false;"> Delete </a> </td> </tr>';
 
     });
 
     $("#added-profiles").append(trows);
 
 });
-
-
-
-$('#createProfile').on('click', function(event) {
-   alert('clicked');
-  event.preventDefault();  // To prevent following the link (optional)
-
-});
-
 
 
 
