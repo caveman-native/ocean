@@ -9,7 +9,7 @@
             <a class="nav-link" href="/editConfig">edit config</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/createProfile">profiles</a>
+            <a class="nav-link" href="/profile">profiles</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/profilePatterns">patterns</a>
