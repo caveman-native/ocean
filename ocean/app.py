@@ -47,9 +47,13 @@ def index():
     hosts = getProperties(HOST))
 
 
-@route("/test",method = "get")
-def index():
-    return template('testConfig', supervisors = getProperties(SUPERVISOR), imm = getProperties(IMM),hosts = getProperties(HOST))
+@route("/profile",method = "get")
+def test():
+    return template('profile')
+
+@route("/profile",method = "post")
+def test():
+    return template('profile')
 
 
 @route("/",method="post")
@@ -175,26 +179,25 @@ def createProfile():
             'profile.type':request.forms.get('type'),
             'profile.direction':request.forms.get('direction'),
             'profile.interval':request.forms.get('interval'),
-            'profile.stopCheck':request.forms.get('stopcheck'),
-            'profile.shallowWindow':request.forms.get('shallowWindow'),
-            'profile.shallowDepth':request.forms.get('shallowDepth'),
-            'profile.deepDepth':request.forms.get('deepDepth'),
-            'profile.deepWindow':request.forms.get('deepWindow'),
-            'profile.rampTime':request.forms.get('rampTime'),
-            'profile.maxTime':request.forms.get('maxTime'),
-            'profile.backtrackTimes':request.forms.get('backtrackTimes'),
-            'profile.stallTimeout':request.forms.get('stallTimeout'),
-            'profile.ctdWrapupTime':request.forms.get('ctdWrapupTime'),
-            'profile.backtrackTimes':request.forms.get('backtrackTimes'),
-            'profile.backtrackCount':request.forms.get('backtrackCount'),
-            'profile.dpdt':request.forms.get('dpdt')
+            'profile.stopCheck':request.forms.get('stop_check'),
+            'profile.shallowWindow':request.forms.get('shallow_window'),
+            'profile.shallowDepth':request.forms.get('shallow_depth'),
+            'profile.deepDepth':request.forms.get('deep_depth'),
+            'profile.deepWindow':request.forms.get('deep_window'),
+            'profile.rampTime':request.forms.get('ramp_time'),
+            'profile.maxTime':request.forms.get('max_time'),
+            'profile.backtrackTimes':request.forms.get('backtrack_time'),
+            'profile.stallTimeout':request.forms.get('stall_timeout'),
+            'profile.ctdWrapupTime':request.forms.get('ctd_warmup_time'),
+            'profile.backtrackCount':request.forms.get('backtrack_count'),
+            'profile.dpdt':request.forms.get('dpdt_threshold')
             })
-           return "<p> Profile added successfully.</p>"               
+           return " Profile added successfully."
         else:
-            return "<p> Profile already exists with same description(meta). Please change the meta description(meta).</p>"   
+            return " Profile already exists with same description(meta). Please change the meta description(meta)."
 
     else:
-        return "<p> Please enter profile description(meta).</p>"
+        return " Please enter profile description(meta)."
 
 @route("/createPattern",method = "get")
 def createPattern():
