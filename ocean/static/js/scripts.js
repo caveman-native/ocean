@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function(){
 $(function(){
   console.log("Helloworld! Good Old jQuery...");
 
-
 $("#profileForm").submit(function(e){
      e.preventDefault();
      saveProfile();
@@ -12,8 +11,6 @@ $("#profileForm").submit(function(e){
 
 
 $( "button#createProfile" ).on( "click", createProfile );
-
-
 
 
 
@@ -105,6 +102,15 @@ $("#profileForm").html(HTML);
 
 }
 
+function deleteProfile(profile){
+
+var url = "/deleteProfile/" + profile;
+$.get( url, function( data ) {
+  $( "#message" ).html( data );
+  alert( data );
+  location.reload();
+});
+}
 
 
 function saveProfile() {
