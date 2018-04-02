@@ -291,7 +291,7 @@ def deleteProfile(key):
         if profile:
             print('Remove Item : Found item with doc id: ', key)
             profiledb.remove(doc_ids=[documentId]) 
-            return '<p>Profile with' + key +'removed successfully </p>'     
+            return '<p>Profile removed successfully </p>'
         else:
             return '<p>No value found with passed document id.</p>'     
     else:
