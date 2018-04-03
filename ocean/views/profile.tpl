@@ -172,7 +172,6 @@ $.getJSON( "/viewProfiles", function( data ) {
 <script>
    var pathname = window.location.pathname;
    if(pathname.includes('/profile/edit/')){
-   alert('Editing Profile');
    if (document.getElementById('editForm'))
    document.getElementById("editForm").style.display = "block";
 }
