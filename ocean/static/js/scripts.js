@@ -10,6 +10,12 @@ $("#profileForm").submit(function(e){
   });
 
 
+
+$("#profileUpdateForm").submit(function(e){
+     e.preventDefault();
+     updateProfile();
+  });
+
 $("#patternForm").submit(function(e){
      e.preventDefault();
      savePattern();
@@ -163,6 +169,16 @@ $.get( url, function( data ) {
 });
 }
 
+function editProfile(profile){
+
+var url = "/profile/edit/" + profile;
+$.get( url, function( data ) {
+  $( "#message" ).html( data );
+  alert( data );
+  location.reload();
+});
+}
+
 
 function deletePattern(pattern){
 
@@ -212,6 +228,47 @@ function saveProfile() {
     $( "#message" ).append( content );
   });
    location.reload();
+}
+
+
+function updateProfile() {
+  // Stop form from submitting normally
+  //event.preventDefault();
+  // Get some values from elements on the page:
+  var $form = $( '#profileUpdateForm' ),
+    meta = $form.find( "input[name='meta']" ).val(),
+    type = $form.find( "input[name='type']" ).val(),
+    direction = $form.find( "input[name='direction']" ).val(),
+    interval = $form.find( "input[name='interval']" ).val(),
+    max_time = $form.find( "input[name='max_time']" ).val(),
+    deep_depth = $form.find( "input[name='deep_depth']" ).val(),
+    deep_window = $form.find( "input[name='deep_window']" ).val(),
+    shallow_depth = $form.find( "input[name='shallow_depth']" ).val(),
+    shallow_window = $form.find( "input[name='shallow_window']" ).val(),
+    stall_timeout = $form.find( "input[name='stall_timeout']" ).val(),
+    ramp_time = $form.find( "input[name='ramp_time']" ).val(),
+    stop_check = $form.find( "input[name='stop_check']" ).val(),
+    backtrack_time = $form.find( "input[name='backtrack_time']" ).val(),
+    backtrack_count = $form.find( "input[name='backtrack_count']" ).val(),
+    ctd_warmup_time = $form.find( "input[name='ctd_warmup_time']" ).val(),
+    dpdt_threshold = $form.find( "input[name='dpdt_threshold']" ).val(),
+    url = document.location.href;
+  // Send the data using post
+  var posting = $.post( url, { meta: meta, type :type, direction: direction,interval : interval,
+                               max_time : max_time, deep_depth : deep_depth, deep_window : deep_window,
+                               shallow_depth : shallow_depth, shallow_window: shallow_window,
+                               stall_timeout: stall_timeout, ramp_time :ramp_time, stop_check :stop_check,
+                               backtrack_time : backtrack_time, backtrack_count:backtrack_count ,
+                               ctd_warmup_time: ctd_warmup_time, dpdt_threshold :dpdt_threshold} );
+  // Put the results in a div
+  posting.done(function( data ) {
+    alert(data);
+
+    var content = $( data );
+    $( "#message" ).append( content );
+  });
+   // similar behavior as clicking on a link
+   window.location.href = "/profile";
 }
 
 
