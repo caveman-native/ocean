@@ -49,11 +49,41 @@ def index():
 
 @route("/profile",method = "get")
 def profile():
-    return template('profile')
+    return template('profile', meta = '',
+                           type = '',
+                           direction = '',
+                           interval = '',
+                           stopCheck = '',
+                           shallowWindow = '',
+                           shallowDepth = '',
+                           deepDepth = '',
+                           deepWindow = '',
+                           rampTime = '',
+                           maxTime = '',
+                           backtrackTimes = '',
+                           stallTimeout = '',
+                           ctdWrapupTime = '',
+                           backtrackCount = '',
+                           dpdt = '')
 
 @route("/profile",method = "post")
 def profile():
-    return template('profile')
+    return template('profile', meta='',
+                    type='',
+                    direction='',
+                    interval='',
+                    stopCheck='',
+                    shallowWindow='',
+                    shallowDepth='',
+                    deepDepth='',
+                    deepWindow='',
+                    rampTime='',
+                    maxTime='',
+                    backtrackTimes='',
+                    stallTimeout='',
+                    ctdWrapupTime='',
+                    backtrackCount='',
+                    dpdt='')
 
 @route("/pattern",method = "get")
 def profile():
@@ -341,10 +371,79 @@ def updatePattern(pattern):
 
 
 
-@route("/editProfile",method = "get")
-def profiles():
-   
-   return('Hello')
+@route("/profile/edit/<profile>",method = "get")
+def editProfile(profile):
+   if profile:
+       documentId = int(profile)
+       profileItem = profiledb.contains(doc_ids=[documentId])
+       print(profileItem)
+       item = profiledb.get(doc_id=documentId)
+       # check if profile id exists
+       if profileItem:
+           return template('profile', meta = item['profile.meta'],
+                           type = item['profile.type'],
+                           direction = item['profile.direction'],
+                           interval = item['profile.interval'],
+                           stopCheck = item['profile.stopCheck'],
+                           shallowWindow = item['profile.shallowWindow'],
+                           shallowDepth = item['profile.shallowDepth'],
+                           deepDepth = item['profile.deepDepth'],
+                           deepWindow = item['profile.deepWindow'],
+                           rampTime = item['profile.rampTime'],
+                           maxTime = item['profile.maxTime'],
+                           backtrackTimes = item['profile.backtrackTimes'],
+                           stallTimeout = item['profile.stallTimeout'],
+                           ctdWrapupTime = item['profile.ctdWrapupTime'],
+                           backtrackCount = item['profile.backtrackCount'],
+                           dpdt = item['profile.dpdt']
+            )
+
+       else:
+           return 'No Profile found with given ID. Please refresh the page.'
+   else:
+       return 'Profile need to be passed'
+
+
+@route("/profile/edit/<profile>", method="post")
+def saveProfile(profile):
+    meta = request.forms.get('meta')
+    print('############')
+    print(meta)
+    print('*************')
+    print(request.path)
+
+    # check if meta is null or not
+    if profile:
+        # check if meta exists
+        if profiledb.contains(doc_ids=[(int(profile))]):
+            # insert data
+            profiledb.update({'profile.meta': request.forms.get('meta'),
+                              'profile.type': request.forms.get('type'),
+                              'profile.direction': request.forms.get('direction'),
+                              'profile.interval': request.forms.get('interval'),
+                              'profile.stopCheck': request.forms.get('stop_check'),
+                              'profile.shallowWindow': request.forms.get('shallow_window'),
+                              'profile.shallowDepth': request.forms.get('shallow_depth'),
+                              'profile.deepDepth': request.forms.get('deep_depth'),
+                              'profile.deepWindow': request.forms.get('deep_window'),
+                              'profile.rampTime': request.forms.get('ramp_time'),
+                              'profile.maxTime': request.forms.get('max_time'),
+                              'profile.backtrackTimes': request.forms.get('backtrack_time'),
+                              'profile.stallTimeout': request.forms.get('stall_timeout'),
+                              'profile.ctdWrapupTime': request.forms.get('ctd_warmup_time'),
+                              'profile.backtrackCount': request.forms.get('backtrack_count'),
+                              'profile.dpdt': request.forms.get('dpdt_threshold')
+                              },  doc_ids=[int(profile)])
+
+            return " Profile updated successfully."
+
+        else:
+            return " Profile already exists with same profile id."
+
+    else:
+        return " Please enter profile number."
+
+
    
 
 @route('/download/getConfig',method = 'get')
@@ -353,6 +452,9 @@ def download():
     downloadConfigFile(profiledb,patterndb)
     return static_file('Scheduler.cfg', root='.', download='Scheduler.cfg')
     #return static_file('Scheduler.cfg', root='.',)   
+
+
+
 
 
 run(host='localhost',port=9090)
