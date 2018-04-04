@@ -1,9 +1,9 @@
-<h3>ITP Deployment Tool</h3>
+<h5>ITP Deployment Tool</h5>
 
 <nav class="col-sm sidebar">
-    <ul class="nav nav-pills flex-column">
+    <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link active" href="/">home</a>
+            <a class="nav-link" href="/">home</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/editConfig">edit config</a>
