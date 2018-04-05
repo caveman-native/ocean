@@ -87,12 +87,23 @@ def profile():
 
 @route("/pattern",method = "get")
 def profile():
-    return template('pattern')
+    return template('pattern', meta = '',
+                           type = '',
+                           sequence = '',
+                           status = '',
+                           start_dt = '',
+                           stop_dt = ''
+            )
 
 @route("/pattern",method = "post")
 def profile():
-    return template('pattern')
-
+    return template('pattern', meta = '',
+                           type = '',
+                           sequence = '',
+                           status = '',
+                           start_dt = '',
+                           stop_dt = ''
+            )
 
 
 @route("/",method="post")
@@ -341,7 +352,7 @@ def deleteProfile(key):
 
 
 
-@route("/updatePattern/<pattern>",method = "post")
+@route("/pattern/edit/<pattern>",method = "post")
 def updatePattern(pattern):
 
     meta = request.forms.get('meta')
@@ -349,29 +360,24 @@ def updatePattern(pattern):
     stop_dt = request.forms.get('stop_dt')
     type = request.forms.get('type')
     status = request.forms.get('status')
-
-   #check if meta is null or not
     if pattern:
-        if patterndb.search(query.meta == pattern):
+        if patterndb.contains(doc_ids=[(int(pattern))]):
             #el = patterndb.get(query.name == pattern)
-            if meta:
-                patterndb.upsert({'pattern.meta':meta,
+                patterndb.update({'pattern.meta':meta,
                             'pattern.type':type,
                             'pattern.start_dt':start_dt,
                             'pattern.stop_dt':stop_dt,
                             'pattern.status':status
-                           }, query.meta == meta)
-            else:
-               return "<p>Meta description is mandatory.</p>"         
+                            }, doc_ids=[int(pattern)])
         else:
-            return "<p>Sorry, no record found, please check the pattern.</p>"    
+               return "No pattern found with given id."
 
     else:
-        return "<p> Please pass Pattern to update.</p>"
+        return " Please pass Pattern to update."
 
 
 @route("/pattern/edit/<pattern>",method = "get")
-def editProfile(pattern):
+def editPattern(pattern):
    if pattern:
        documentId = int(pattern)
        patternItem = patterndb.contains(doc_ids=[documentId])
