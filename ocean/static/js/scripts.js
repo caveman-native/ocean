@@ -16,6 +16,12 @@ $("#profileUpdateForm").submit(function(e){
      updateProfile();
   });
 
+
+$("#patternUpdateForm").submit(function(e){
+     e.preventDefault();
+     updatePattern();
+  });
+
 $("#patternForm").submit(function(e){
      e.preventDefault();
      savePattern();
@@ -133,12 +139,8 @@ function createPattern() {
     '<div class="form-group">' +
     '<label for="inputsequence">sequence</label>' +
     '<input type="number"  min="0" max="6000" name="sequence" class="form-control" id="inputsequence" placeholder="sequence">' +
-  '</div>' +
-    '<div class="form-group">' +
-    '<label for="inputmax_time">max_time</label>' +
-    '<input type="number" min="0" max="6000" name="max_time" class="form-control" id="inputmax_time" placeholder="max_time">' +
-  '</div>' +
-    '<div class="form-group">' +
+   '</div>' +
+   '<div class="form-group">' +
     '<label for="inputType1">type</label>' +
     '<input type="number" min="0" max="6000" name="type" class="form-control" id="inputType1" placeholder="type">' +
   '</div>' +
@@ -295,4 +297,31 @@ function savePattern() {
     $( "#message" ).append( content );
   });
    location.reload();
+}
+
+
+function updatePattern() {
+  // Stop form from submitting normally
+  //event.preventDefault();
+  // Get some values from elements on the page:
+  var $form = $( '#patternUpdateForm' ),
+    meta = $form.find( "input[name='meta']" ).val(),
+    start_dt = $form.find( "input[name='start_dt']" ).val(),
+    stop_dt = $form.find( "input[name='stop_dt']" ).val(),
+    sequence = $form.find( "input[name='sequence']" ).val(),
+    type = $form.find( "input[name='type']" ).val(),
+    status = $form.find( "input[name='status']" ).val(),
+    url = document.location.href;
+  // Send the data using post
+  var posting = $.post( url, { meta: meta, start_dt :start_dt, stop_dt: stop_dt,sequence : sequence,
+                               type : type, status : status } );
+  // Put the results in a div
+  posting.done(function( data ) {
+    alert(data);
+
+    var content = $( data );
+    $( "#message" ).append( content );
+  });
+    // similar behavior as clicking on a link
+   window.location.href = "/pattern";
 }
