@@ -244,7 +244,7 @@ def createPattern():
    return '''<form id="create-pattern-form" action='/createPattern' method='post'>
     Meta: <input id="meta" name="meta" type="text" maxlength="200" required/>
     Start Date: <input id="start-date" name="start_dt" type="date" min="2018-04-01" max="2020-04-30" />
-    End Date: <input id="end-dt" name="end_dt" type="date" min="2018-04-01" max="2021-04-30" />
+    Stop Date: <input id="end-dt" name="stop_dt" type="date" min="2018-04-01" max="2021-04-30" />
     Type: <input id="type" name="type" type="number" min="0" max= "2"/>
     Status: <input id="status" name="status" type="number" min="0" max= "1"/>
     <input id="pattern-submit" value="Create Pattern" type="submit" /> </form>'''
@@ -254,7 +254,7 @@ def createPattern():
 def createPattern():
     meta = request.forms.get('meta')
     start_dt = request.forms.get('start_dt')
-    end_dt = request.forms.get('end_dt')
+    stop_dt = request.forms.get('stop_dt')
     type = request.forms.get('type')
     status = request.forms.get('status')
     sequence = request.forms.get('sequence')
@@ -266,7 +266,7 @@ def createPattern():
            patterndb.insert({'pattern.meta':meta,
                             'pattern.type':type,
                             'pattern.start_dt':start_dt,
-                            'pattern.end_dt':end_dt,
+                            'pattern.stop_dt':stop_dt,
                             'pattern.sequence' : sequence,
                             'pattern.status':status
                            })
@@ -346,7 +346,7 @@ def updatePattern(pattern):
 
     meta = request.forms.get('meta')
     start_dt = request.forms.get('start_dt')
-    end_dt = request.forms.get('end_dt')
+    stop_dt = request.forms.get('stop_dt')
     type = request.forms.get('type')
     status = request.forms.get('status')
 
@@ -358,7 +358,7 @@ def updatePattern(pattern):
                 patterndb.upsert({'pattern.meta':meta,
                             'pattern.type':type,
                             'pattern.start_dt':start_dt,
-                            'pattern.end_dt':end_dt,
+                            'pattern.stop_dt':stop_dt,
                             'pattern.status':status
                            }, query.meta == meta)
             else:
@@ -368,6 +368,30 @@ def updatePattern(pattern):
 
     else:
         return "<p> Please pass Pattern to update.</p>"
+
+
+@route("/pattern/edit/<pattern>",method = "get")
+def editProfile(pattern):
+   if pattern:
+       documentId = int(pattern)
+       patternItem = patterndb.contains(doc_ids=[documentId])
+       print(patternItem)
+       item = patterndb.get(doc_id=documentId)
+       # check if profile id exists
+       if patternItem:
+           return template('pattern', meta = item['pattern.meta'],
+                           type = item['pattern.type'],
+                           sequence = item['pattern.sequence'],
+                           status = item['pattern.status'],
+                           start_dt = item['pattern.start_dt'],
+                           stop_dt = item['pattern.stop_dt']
+            )
+
+       else:
+           return 'No Profile found with given ID. Please refresh the page.'
+   else:
+       return 'Profile need to be passed'
+
 
 
 
