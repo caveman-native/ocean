@@ -87,7 +87,7 @@ $.getJSON( "/viewPatterns", function( data ) {
    </div>
     <div class="form-group">
     <label for="inputstop_dt">stop_dt</label>
-    <input type="date" value={{stop_dt}} name="stop_dt" class="form-control" id="inputstop_dt" placeholder="inputstop_dt">
+    <input type="datetime-local" name="stop_dt" value="{{stop_dt}}" class="form-control" id="inputstop_dt" placeholder="inputstop_dt">
    </div>
     <div class="form-group">
     <label for="inputsequence">sequence</label>
