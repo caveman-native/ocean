@@ -1,11 +1,13 @@
 % include('header.tpl')
 <div class="row">
 
+    <!--
     <div class="col-sm">
-        % include('nav.tpl')
+        #% include('nav.tpl')
     </div>
+    -->
 
-    <div class="col-8">
+    <div class="col-10 ml-5">
 
         <div class="row">
             <h5>Profiler Mission Configuration</h4>
@@ -47,7 +49,7 @@
         </div>
 
         <div class="row">
-            <a class="btn btn-primary" href="/editConfig" role="button">Edit Current Configuration</a>
+            <a class="btn btn-primary" href="/editConfig" role="button">Edit Mission Config</a>
         </div>
 
         % include('footerNav.tpl')
