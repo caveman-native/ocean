@@ -25,7 +25,7 @@
             <th>Edit</th>
             <th>Delete</th>
             <th>Add to Pattern</th>
-            <th><button type="button" class="btn btn-primary" id="createProfile">Create Profile</button></th>
+            <th><button type="button" class="btn btn-primary" id="create-profile">Create Profile</button></th>
           </tr>
         </thead>
         <tbody id="added-profiles"></tbody>
@@ -34,11 +34,11 @@
 
     <div id="message"></div>
 
-    <div id="profileForm"></div>
+    <div id="profile-form"></div>
 
-    <div id="editForm" style="display: none;">
+    <div id="edit-form" style="display: none;">
 
-    <form id="profileUpdateForm" action="" method="post">
+    <form id="profile-update-form" action="" method="post">
 
       <div class="row">
 
@@ -131,7 +131,7 @@
 
       </div>
 
-    <button type="submit" id="saveProfile" class="btn btn-warning">Save Profile</button>
+    <button type="submit" id="create-profile" class="btn btn-warning">Save Profile</button>
     </form>
 
   % include('footerNav.tpl')
@@ -139,7 +139,7 @@
 
 </div>
 <script>
-  (function() {
+$(function(){ 
   
   $.getJSON( "/viewProfiles", function( data ) {
     var items = [];
@@ -160,24 +160,24 @@
             +  '</td><td>' + item["profile.shallowWindow"]
             + '</td><td>' + item["profile.stallTimeout"]
             + '</td>'
-            + '</td><td><a id="editProfile" href="/profile/edit/' + keys[index] + '">View/Edit</a></td>'
-              + '</td><td><a id="deleteProfile" href="#deleteProfile" onClick="deleteProfile(' + keys[index] + '); return false;">Delete</a></td>'
+            + '</td><td><a id="edit-profile" href="/profile/edit/' + keys[index] + '">View/Edit</a></td>'
+              + '</td><td><a id="delete-profile" href="#delete-profile" onClick="deleteProfile(' + keys[index] + '); return false;">Delete</a></td>'
             + '</td><td><select class="custom-select custom-select-sm mr-sm-2" id="inlineFormCustomSelect" name="Add to Pattern" value="">'
             + '<option value="1">1</option>'
             + '</select>'
-            + '</td><td><button type="submit" id="addToPattern" class="btn btn-warning">AddToPattern</button>'
+            + '</td><td><button type="submit" id="add-to-pattern" class="btn btn-warning">Add To Pattern</button>'
             +  '</tr>';
         });
         $("#added-profiles").append(trows);
     });
   
-  })();
+});
 
-  var pathname = window.location.pathname;
-  if(pathname.includes('/profile/edit/')){
-    if (document.getElementById('editForm'))
-    document.getElementById("editForm").style.display = "block";
-  }
+var pathname = window.location.pathname;
+if(pathname.includes('/profile/edit/')){
+    if (document.getElementById('edit-form'))
+    document.getElementById("edit-form").style.display = "block";
+}
 
 </script>
 % include('footer.tpl')
