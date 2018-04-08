@@ -1,9 +1,13 @@
 % include('header.tpl')
 <div class="row">
-<div class="col-sm">
-    % include('nav.tpl')
-</div>
-    <div class="col-8">
+    
+    <!--
+    <div class="col-sm">
+        #% include('nav.tpl')
+    </div>
+    -->
+
+    <div class="col-10 ml-5">
 
         <div class="row">
             <h5>Edit Configuration</h4>
@@ -225,11 +229,12 @@
                     <small class="form-text text-muted">max fput list entries</small>
                 </div>
 
-            <button type="submit" class="btn btn-primary submit-btn">Edit Properties</button>
+            <button type="submit" class="btn btn-primary submit-btn">Save</button>
             </form>
 
         </div>
 
+    % include('footerNav.tpl')    
     </div>
 
 </div>
