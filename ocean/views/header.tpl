@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="/static/css/bootstrap-reboot.min.css">
-    <!--<link rel="stylesheet" href="/static/css/base.css">-->
+    <link rel="stylesheet" href="/static/css/custom-theme.css">
     <script src="/static/js/jquery-3.3.1.min.js"></script>
     <script src="/static/js/bootstrap.bundle.min.js"></script>
     <script src="/static/js/chart.min.js"></script>
     <script src="/static/js/scripts.js"></script>
 </head>
 <body>
-<div class="container">
+<div class="container p-0">
 
     <div class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">
