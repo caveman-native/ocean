@@ -1,11 +1,13 @@
 % include('header.tpl')
 <div class="row">
 
-  <div class="col-sm">
-    % include('nav.tpl')
-  </div>
+    <!--
+    <div class="col-sm">
+        #% include('nav.tpl')
+    </div>
+    -->
 
-  <div class="col-8">
+    <div class="col-10 ml-5">
 
     <h2>Exsiting Profiles</h2>
 
@@ -38,7 +40,6 @@
 
     <form id="profileUpdateForm" action="" method="post">
 
-    <div class="container">
       <div class="row">
 
         <div class="col-sm">
@@ -129,14 +130,14 @@
         </div>
 
       </div>
-    </div>
 
-    <button type="submit" id="saveProfile" class="btn btn-warning">Submit</button>
+    <button type="submit" id="saveProfile" class="btn btn-warning">Save Profile</button>
     </form>
+
+  % include('footerNav.tpl')
   </div>
 
 </div>
-
 <script>
   (function() {
   
@@ -159,7 +160,7 @@
             +  '</td><td>' + item["profile.shallowWindow"]
             + '</td><td>' + item["profile.stallTimeout"]
             + '</td>'
-            + '</td><td><a id="editProfile" href="/profile/edit/' + keys[index] + '">Edit</a></td>'
+            + '</td><td><a id="editProfile" href="/profile/edit/' + keys[index] + '">View/Edit</a></td>'
               + '</td><td><a id="deleteProfile" href="#deleteProfile" onClick="deleteProfile(' + keys[index] + '); return false;">Delete</a></td>'
             + '</td><td><select class="custom-select custom-select-sm mr-sm-2" id="inlineFormCustomSelect" name="Add to Pattern" value="">'
             + '<option value="1">1</option>'
