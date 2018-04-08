@@ -483,6 +483,10 @@ def download():
     return static_file('Scheduler.cfg', root='.', download='Scheduler.cfg')
     #return static_file('Scheduler.cfg', root='.',)   
 
+@route('/download/missionConfig', method='get')
+def downloadMissionConfig():
+    return static_file(CONFIG_FILE, root='.', download=CONFIG_FILE)
+
 
 
 
