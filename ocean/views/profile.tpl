@@ -12,6 +12,8 @@
     <h2>Exsiting Profiles</h2>
 
     <div class="table-responsive">
+
+
       <table class="table table-sm">
         <thead class="thead-dark">
           <tr>
@@ -148,7 +150,8 @@ $(function(){
       items.push( val  );
       keys.push( key );
     });
-  
+
+
     $("tr:has(td)").remove();
       var trows = '';
         $.each(items, function(index, item) {
@@ -162,15 +165,18 @@ $(function(){
             + '</td>'
             + '</td><td><a id="edit-profile" href="/profile/edit/' + keys[index] + '">View/Edit</a></td>'
               + '</td><td><a id="delete-profile" href="#delete-profile" onClick="deleteProfile(' + keys[index] + '); return false;">Delete</a></td>'
-            + '</td><td><select class="custom-select custom-select-sm mr-sm-2" id="inlineFormCustomSelect" name="Add to Pattern" value="">'
-            + '<option value="1">1</option>'
+            + '</td>'
+            +  '<td ><select class="custom-select custom-select-sm mr-sm-2" id="inlineFormCustomSelect" name="Add to Pattern" value="">'
+            +  '<option value="1">1</option>'
             + '</select>'
-            + '</td><td><button type="submit" id="add-to-pattern" class="btn btn-warning">Add To Pattern</button>'
+            + '</td><td><button type="submit" onclick="addPatternToProfile(' + keys[index] + ')" id="add-to-pattern" class="btn btn-warning">Add Patterns</button>'
             +  '</tr>';
         });
         $("#added-profiles").append(trows);
+        updatePatternList();
     });
-  
+
+
 });
 
 var pathname = window.location.pathname;
@@ -179,5 +185,38 @@ if(pathname.includes('/profile/edit/')){
     document.getElementById("edit-form").style.display = "block";
 }
 
+
+
+function updatePatternList(){
+
+var items = [];
+ var keys = [];
+$.getJSON("/viewPatterns", function(data){
+    $.each(data, function(key, val){
+        items.push(val);
+        keys.push(key);
+    });
+
+    $('.custom-select').each(function() {
+        let dropdown = $('.custom-select');
+
+        dropdown.empty();
+
+        dropdown.append('<option selected="true" disabled>Available Patterns</option>');
+        dropdown.prop('selectedIndex', 0);
+
+     $.each(items, function(index, item) {
+        dropdown.append(
+        $('<option></option>').val(keys[index]).html(item["pattern.meta"]));
+
+    });
+    });
+
+ });
+}
+
+function addPatternToProfile(profile){
+ alert('addPatternToProfile called');
+}
 </script>
 % include('footer.tpl')
