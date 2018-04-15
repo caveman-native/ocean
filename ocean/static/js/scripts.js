@@ -132,6 +132,12 @@ function createProfile() {
 function createPattern() {
   var HTML = '<form id="pattern-form">' +
 
+    '<div class="clearfix"></div>' +
+    '<div class="row mb-5">' +
+        '<h5>Create a New Pattern</h4>' +
+    '</div>' +
+    '<div class="clearfix"></div>' +
+
     '<div class="form-group">' +
     '<label for="inputMeta">Meta</label>' +
     '<input type="text" name="meta" class="form-control" id="meta" aria-describedby="metaHelp" placeholder="Enter meta">' +
@@ -368,5 +374,3 @@ function updatePattern() {
     // similar behavior as clicking on a link
     window.location.href = "/pattern";
 }
-
-
