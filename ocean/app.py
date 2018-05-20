@@ -92,7 +92,9 @@ def profile():
                            sequence = '',
                            status = '',
                            start_dt = '',
-                           stop_dt = ''
+                           stop_dt = '',
+                           profiles=availableProfiles()
+
             )
 
 @route("/pattern",method = "post")
@@ -102,7 +104,8 @@ def profile():
                            sequence = '',
                            status = '',
                            start_dt = '',
-                           stop_dt = ''
+                           stop_dt = '',
+                           profiles=availableProfiles()
             )
 
 
@@ -360,6 +363,7 @@ def updatePattern(pattern):
     stop_dt = request.forms.get('stop_dt')
     type = request.forms.get('type')
     status = request.forms.get('status')
+    profiles = request.forms.getall('profiles[]')
     if pattern:
         if patterndb.contains(doc_ids=[(int(pattern))]):
             #el = patterndb.get(query.name == pattern)
@@ -367,7 +371,8 @@ def updatePattern(pattern):
                             'pattern.type':type,
                             'pattern.start_dt':start_dt,
                             'pattern.stop_dt':stop_dt,
-                            'pattern.status':status
+                            'pattern.status':status,
+                            'pattern.profile': profiles
                             }, doc_ids=[int(pattern)])
         else:
                return "No pattern found with given id."
@@ -390,7 +395,8 @@ def editPattern(pattern):
                            sequence = item['pattern.sequence'],
                            status = item['pattern.status'],
                            start_dt = item['pattern.start_dt'],
-                           stop_dt = item['pattern.stop_dt']
+                           stop_dt = item['pattern.stop_dt'],
+                           profiles = availableProfiles()
             )
 
        else:
@@ -487,6 +493,11 @@ def download():
 def downloadMissionConfig():
     return static_file(CONFIG_FILE, root='.', download=CONFIG_FILE)
 
+def availableProfiles():
+    profiles = {}
+    for profile in profiledb:
+        profiles[profile.doc_id] = profile
+    return profiles
 
 
 
