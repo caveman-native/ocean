@@ -344,6 +344,7 @@ function savePattern() {
 function updatePattern() {
     // Stop form from submitting normally
     //event.preventDefault();
+
     // Get some values from elements on the page:
     var $form = $('#pattern-update-form'),
     meta = $form.find("input[name='meta']").val(),
@@ -352,8 +353,9 @@ function updatePattern() {
     sequence = $form.find("input[name='sequence']").val(),
     type = $form.find("input[name='type']").val(),
     status = $form.find("input[name='status']").val(),
+    profiles = $form.find("select[name='profile_list']").val(),
     url = document.location.href;
-
+    //alert($form.find("select[name='profile_list']").val());
     // Send the data using post
     var posting = $.post( url, {
         meta: meta,
@@ -361,7 +363,8 @@ function updatePattern() {
         stop_dt: stop_dt,
         sequence: sequence,
         type: type,
-        status: status
+        status: status,
+        profiles: profiles
     });
 
     // Put the results in a div
