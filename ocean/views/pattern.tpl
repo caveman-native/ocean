@@ -96,12 +96,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="relatedprofiles">add profiles to pattern</label>
-                    <select class="form-control form-control-sm custom-select" size="3" multiple>
-                        <option value="profileID_1">Profile Meta Name_1</option>
-                        <option value="profileID_2">Profile Meta Name_2</option>
-                        <option value="profileID_3">Profile Meta Name_3</option>
-                        <option value="profileID_4">Profile Meta Name_4</option>
+                    <label for="profile_list">add profiles to pattern</label>
+                    <select name ="profile_list" id ="profile_list" class="form-control form-control-sm custom-select" multiple>
+                    % for key, value in sorted(profiles.items()):
+                        <option value={{key}}>{{value['profile.meta']}}, type {{value['profile.type']}}</option>
+                    % end
                     </select>
                 </div>
 
