@@ -91,8 +91,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="current-profiles-added">Current Profiles Added</label>
-                    <textarea class="form-control form-control-sm" id="profiles-added-textarea" rows="4">meta1, meta2, yoyo, dive3, ex, ex, ex...</textarea>
+                    <label for="current-profiles-added">Current Profiles Added : </label>
+
+                    <!-- <textarea class="form-control form-control-sm" id="profiles-added-textarea" rows="4"> -->
+                        % for key, value in currentProfiles.items():
+                    <b> {{value['profile.meta']}}  - type {{value['profile.type']}} ,</b>
+                        % end
+                    <!-- </textarea> -->
                 </div>
 
                 <div class="form-group">
@@ -143,6 +148,7 @@ var pathname = window.location.pathname;
 if(pathname.includes('/pattern/edit/')){
     if (document.getElementById('edit-form'))
     document.getElementById("edit-form").style.display = "block";
+    document.getElementById("create-pattern").style.display = "none";
 }
 
 </script>    
