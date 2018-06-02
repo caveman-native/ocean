@@ -130,6 +130,7 @@ function createProfile() {
 }
 
 function createPattern() {
+ document.getElementById("create-pattern").style.display = "none";
   var HTML = '<form id="pattern-form">' +
 
     '<div class="clearfix"></div>' +
