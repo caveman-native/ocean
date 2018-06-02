@@ -86,26 +86,28 @@ def profile():
                     dpdt='')
 
 @route("/pattern",method = "get")
-def profile():
+def pattern():
     return template('pattern', meta = '',
                            type = '',
                            sequence = '',
                            status = '',
                            start_dt = '',
                            stop_dt = '',
-                           profiles=availableProfiles()
+                           profiles=availableProfiles(),
+                           currentProfiles={}
 
             )
 
 @route("/pattern",method = "post")
-def profile():
+def pattern():
     return template('pattern', meta = '',
                            type = '',
                            sequence = '',
                            status = '',
                            start_dt = '',
                            stop_dt = '',
-                           profiles=availableProfiles()
+                           profiles=availableProfiles(),
+                           currentProfiles = {}
             )
 
 
@@ -277,12 +279,14 @@ def createPattern():
         #check if meta exists 
         if not patterndb.search(query.meta == meta):
            #insert data
+           profileList = []
            patterndb.insert({'pattern.meta':meta,
                             'pattern.type':type,
                             'pattern.start_dt':start_dt,
                             'pattern.stop_dt':stop_dt,
                             'pattern.sequence' : sequence,
-                            'pattern.status':status
+                            'pattern.status':status,
+                             'pattern.profile':profileList
                            })
            return " Pattern added successfully. "
         else:
@@ -388,6 +392,17 @@ def editPattern(pattern):
        patternItem = patterndb.contains(doc_ids=[documentId])
        print(patternItem)
        item = patterndb.get(doc_id=documentId)
+
+       profileDict = {}
+       if(query.item['pattern.profile'].exists()):
+           avlProfiles = item['pattern.profile']
+           if (len(avlProfiles) > 0):
+               for profileId in avlProfiles:
+                   if (profiledb.contains(doc_ids=[int(profileId)])):
+                       profItem = profiledb.get(doc_id=int(profileId))
+                       profileDict[profileId] = profItem
+
+       print(profileDict)
        # check if profile id exists
        if patternItem:
            return template('pattern', meta = item['pattern.meta'],
@@ -396,7 +411,8 @@ def editPattern(pattern):
                            status = item['pattern.status'],
                            start_dt = item['pattern.start_dt'],
                            stop_dt = item['pattern.stop_dt'],
-                           profiles = availableProfiles()
+                           profiles = availableProfiles(),
+                           currentProfiles=profileDict
             )
 
        else:
