@@ -8,6 +8,7 @@ from writeConfig import downloadConfigFile
 #config = ConfigParser.RawConfigParser()
 #from readCfg import readProperties
 
+
 patterndb = TinyDB('pattern.json') 
 profiledb = TinyDB('profile.json')
 query = Query()
